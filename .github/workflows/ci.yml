@@ -1,0 +1,93 @@
+name: CI
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    services:
+      postgres:
+        image: postgres:14
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: postgres
+          POSTGRES_DB: aegis
+        ports: [ "5432:5432" ]
+    env:
+      DATABASE_URL: postgresql://postgres:postgres@localhost:5432/aegis
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.11'
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install -U pip
+          python -m pip install -r api/requirements.txt -r ml/training/requirements.txt
+          python -m pip install pre-commit
+
+      - name: Install JS dependencies
+        run: |
+          cd frontend-web && npm ci
+          cd ../frontend-mobile && npm ci
+
+      - name: Run linters
+        run: |
+          ruff api ml
+          black --check api ml
+          cd frontend-web && npm run lint
+          cd ../frontend-mobile && npm run lint
+
+      - name: Run type checks
+        run: |
+          mypy api
+          cd frontend-web && npx tsc --noEmit
+
+      - name: Run tests
+        run: |
+          pytest -q api/app/tests
+          pytest -q ml/training/tests
+          cd frontend-web && npm test --if-present
+
+      - name: Terraform fmt and validate
+        run: |
+          cd infra
+          terraform fmt -check
+          terraform init
+          terraform validate
+
+  docker-build:
+    needs: build-test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Set up QEMU
+        uses: docker/setup-qemu-action@v3
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+      - name: Build and push API image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./api
+          push: false
+          tags: aegis-health-api:latest
+      - name: Build and push ML image
+        uses: docker/build-push-action@v5
+        with:
+          context: ./ml/serving
+          push: false
+          tags: aegis-health-ml:latest
