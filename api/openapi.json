@@ -1,0 +1,54 @@
+{
+  "openapi": "3.0.2",
+  "info": {
+    "title": "Aegis Health API",
+    "version": "1.0.0",
+    "description": "Simplified OpenAPI definition. Run `make openapi` to regenerate from FastAPI."
+  },
+  "paths": {
+    "/v1/auth/exchange": {
+      "post": {
+        "summary": "Exchange an Auth0 code for an access token",
+        "responses": {
+          "200": {"description": "Successful token exchange"}
+        }
+      }
+    },
+    "/v1/symptoms": {
+      "post": {
+        "summary": "Create a new symptom log",
+        "responses": {"201": {"description": "Log created"}}
+      }
+    },
+    "/v1/risk/latest": {
+      "get": {
+        "summary": "Get latest risk score",
+        "responses": {"200": {"description": "Latest risk returned"}}
+      }
+    },
+    "/v1/risk/stream": {
+      "get": {
+        "summary": "WebSocket stream of risk updates",
+        "responses": {"101": {"description": "Switching protocols"}}
+      }
+    },
+    "/v1/wearables/sync": {
+      "post": {
+        "summary": "Sync wearable data",
+        "responses": {"202": {"description": "Data accepted"}}
+      }
+    },
+    "/v1/interventions/trigger": {
+      "post": {
+        "summary": "Trigger a nudge intervention",
+        "responses": {"202": {"description": "Nudge scheduled"}}
+      }
+    },
+    "/v1/analytics/summary": {
+      "get": {
+        "summary": "Retrieve analytics summary",
+        "responses": {"200": {"description": "Summary returned"}}
+      }
+    }
+  }
+}
