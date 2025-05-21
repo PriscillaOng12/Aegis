@@ -1,0 +1,33 @@
+{
+  "input": {
+    "type": "object",
+    "properties": {
+      "pain": {"type": "number"},
+      "fatigue": {"type": "number"},
+      "nausea": {"type": "number"},
+      "sleep_efficiency_mean_7d": {"type": "number"},
+      "hrv_rmssd_mean_3d": {"type": "number"},
+      "hr_mean_1d": {"type": "number"},
+      "steps_sum_1d": {"type": "number"}
+    },
+    "required": ["pain", "fatigue", "nausea", "sleep_efficiency_mean_7d", "hrv_rmssd_mean_3d", "hr_mean_1d", "steps_sum_1d"]
+  },
+  "output": {
+    "type": "object",
+    "properties": {
+      "risk_percentage": {"type": "number"},
+      "top_drivers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "feature": {"type": "string"},
+            "impact": {"type": "number"}
+          }
+        }
+      },
+      "lead_time_hours": {"type": "number"}
+    },
+    "required": ["risk_percentage"]
+  }
+}
