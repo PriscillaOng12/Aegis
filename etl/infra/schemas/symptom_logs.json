@@ -1,0 +1,10 @@
+[
+  {"name": "id", "type": "STRING", "mode": "REQUIRED"},
+  {"name": "user_id", "type": "STRING", "mode": "REQUIRED"},
+  {"name": "pain", "type": "INTEGER"},
+  {"name": "fatigue", "type": "INTEGER"},
+  {"name": "nausea", "type": "INTEGER"},
+  {"name": "notes", "type": "STRING"},
+  {"name": "timestamp", "type": "TIMESTAMP"},
+  {"name": "created_at", "type": "TIMESTAMP"}
+]

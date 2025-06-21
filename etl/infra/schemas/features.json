@@ -1,0 +1,11 @@
+[
+  {"name": "user_id", "type": "STRING", "mode": "REQUIRED"},
+  {"name": "day", "type": "DATE", "mode": "REQUIRED"},
+  {"name": "pain", "type": "INTEGER"},
+  {"name": "fatigue", "type": "INTEGER"},
+  {"name": "nausea", "type": "INTEGER"},
+  {"name": "hr_mean_1d", "type": "FLOAT"},
+  {"name": "hrv_rmssd_mean_3d", "type": "FLOAT"},
+  {"name": "sleep_efficiency_mean_7d", "type": "FLOAT"},
+  {"name": "steps_sum_1d", "type": "FLOAT"}
+]

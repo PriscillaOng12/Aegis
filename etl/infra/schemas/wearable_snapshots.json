@@ -1,0 +1,11 @@
+[
+  {"name": "id", "type": "STRING", "mode": "REQUIRED"},
+  {"name": "user_id", "type": "STRING", "mode": "REQUIRED"},
+  {"name": "source", "type": "STRING"},
+  {"name": "timestamp", "type": "TIMESTAMP"},
+  {"name": "hr", "type": "FLOAT"},
+  {"name": "hrv", "type": "FLOAT"},
+  {"name": "steps", "type": "FLOAT"},
+  {"name": "sleep", "type": "FLOAT"},
+  {"name": "created_at", "type": "TIMESTAMP"}
+]
