@@ -1,0 +1,20 @@
+groups:
+  - name: aegis-alerts
+    rules:
+      - alert: HighErrorRate
+        expr: sum(rate(http_server_requests_total{status=~"5.."}[5m])) / sum(rate(http_server_requests_total[5m])) > 0.05
+        for: 10m
+        labels:
+          severity: critical
+        annotations:
+          summary: "High API error rate"
+          description: "More than 5% of requests are failing with 5xx responses."
+
+      - alert: HighLatency
+        expr: histogram_quantile(0.95, sum(rate(http_server_request_duration_seconds_bucket{job="api"}[5m])) by (le)) > 0.2
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: "API latency SLO breached"
+          description: "p95 latency exceeds 200ms for 5 minutes."

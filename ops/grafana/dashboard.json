@@ -1,0 +1,41 @@
+{
+  "id": null,
+  "title": "Aegis Health Overview",
+  "panels": [
+    {
+      "type": "stat",
+      "title": "API p95 Latency (ms)",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(http_server_request_duration_seconds_bucket{job=\"api\"}[5m])) by (le)) * 1000",
+          "legendFormat": "p95"
+        }
+      ],
+      "gridPos": {"x": 0, "y": 0, "w": 8, "h": 4}
+    },
+    {
+      "type": "stat",
+      "title": "ML Inference Latency (ms)",
+      "targets": [
+        {
+          "expr": "histogram_quantile(0.95, sum(rate(ml_inference_seconds_bucket[5m])) by (le)) * 1000",
+          "legendFormat": "p95"
+        }
+      ],
+      "gridPos": {"x": 8, "y": 0, "w": 8, "h": 4}
+    },
+    {
+      "type": "stat",
+      "title": "Error Rate (%)",
+      "targets": [
+        {
+          "expr": "sum(rate(http_server_requests_total{status=~\"5..\"}[5m])) / sum(rate(http_server_requests_total[5m])) * 100",
+          "legendFormat": "5xx"
+        }
+      ],
+      "gridPos": {"x": 0, "y": 4, "w": 8, "h": 4}
+    }
+  ],
+  "schemaVersion": 30,
+  "version": 1
+}
