@@ -1,6 +1,6 @@
 # Aegis Health: AI-Powered Chronic Condition Management Platform
 
-<div align="center">
+
 
 **Predicting health flare-ups 48 hours in advance through AI-powered symptom analysis and wearable data fusion**
 
@@ -279,7 +279,7 @@ This project is licensed under the **MIT License** - see [LICENSE](LICENSE) for 
 
 ---
 
-<div align="center">
+
 
 **Built with ❤️ for patients, clinicians, and the future of predictive healthcare**
 
