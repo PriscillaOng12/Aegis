@@ -9,17 +9,17 @@
 ![Anthropic](https://img.shields.io/badge/Anthropic%20Claude-FF6B35?style=for-the-badge)
 ![LangChain](https://img.shields.io/badge/LangChain-121212?style=for-the-badge&logo=langchain)
 
-**GitHub Integration:**
+### **GitHub Integration:**
 ![GitHub](https://img.shields.io/badge/GitHub%20App-181717?style=for-the-badge&logo=github&logoColor=white)
 ![Webhooks](https://img.shields.io/badge/GitHub%20Webhooks-181717?style=for-the-badge&logo=github&logoColor=white)
 ![SARIF](https://img.shields.io/badge/SARIF%20Reports-2088FF?style=for-the-badge&logo=github&logoColor=white)
 
-**Monitoring & DevOps:**
+### **Monitoring & DevOps:**
 ![Prometheus](https://img.shields.io/badge/Prometheus-E6522C?style=for-the-badge&logo=prometheus&logoColor=white)
 ![Grafana](https://img.shields.io/badge/Grafana-F46800?style=for-the-badge&logo=grafana&logoColor=white)
 ![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)
 
-**Performance Metrics:**
+### **Performance Metrics:**
 [![API Latency](https://img.shields.io/badge/p95%20latency-220ms-green?style=flat-square)](#performance)
 [![Uptime](https://img.shields.io/badge/uptime-99.5%25-brightgreen?style=flat-square)](#reliability)
 [![GitHub API Efficiency](https://img.shields.io/badge/API%20calls%20reduced-35%25-blue?style=flat-square)](#optimization)
