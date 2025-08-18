@@ -2,11 +2,11 @@
 
 > **Scalable, real-time chronic disease management platform built for clinical-grade reliability**
 
-## **System Overview**
+## System Overview
 
 Aegis Health implements a microservices architecture designed for healthcare environments requiring sub-200ms response times, 99.9% uptime, and HIPAA compliance. The system processes multi-modal health data streams to provide real-time risk predictions and automated interventions.
 
-### **Design Principles**
+### Design Principles
 - **Privacy by Design:** Zero-trust security model with end-to-end encryption
 - **Real-time Processing:** Sub-180ms P95 latency for critical health decisions  
 - **Clinical Reliability:** 99.9% uptime with graceful degradation
@@ -15,7 +15,7 @@ Aegis Health implements a microservices architecture designed for healthcare env
 
 ---
 
-##  **High-Level Architecture**
+## High-Level Architecture
 
 ```mermaid
 C4Container
@@ -98,21 +98,21 @@ C4Container
 
 ---
 
-## 🔄 **Data Flow Architecture**
+## Data Flow Architecture
 
-### **Real-time Event Processing**
+### Real-time Event Processing
 
 ```mermaid
 sequenceDiagram
-    participant App as  Mobile App
-    participant API as  FastAPI
-    participant Auth as  Auth0
-    participant DB as  PostgreSQL
-    participant Queue as  Pub/Sub
-    participant ETL as ⚡ Beam Pipeline
-    participant ML as  ML Service
-    participant BQ as  BigQuery
-    participant Alert as  Alert System
+    participant App as Mobile App
+    participant API as FastAPI
+    participant Auth as Auth0
+    participant DB as PostgreSQL
+    participant Queue as Pub/Sub
+    participant ETL as Beam Pipeline
+    participant ML as ML Service
+    participant BQ as BigQuery
+    participant Alert as Alert System
     
     Note over App,Alert: Patient logs symptom (Pain: 8/10)
     
@@ -149,42 +149,42 @@ sequenceDiagram
     Note over App: Real-time risk update via WebSocket
 ```
 
-### **Data Pipeline Layers**
+### Data Pipeline Layers
 
 ```mermaid
 graph TD
     subgraph "1. Ingestion Layer"
-        A1[ Mobile Symptoms]
-        A2[ Wearable Data]
-        A3[ Clinical Notes]
-        A4[ Medication Events]
+        A1[Mobile Symptoms]
+        A2[Wearable Data]
+        A3[Clinical Notes]
+        A4[Medication Events]
     end
     
     subgraph "2. Streaming Layer"
-        B1[ Pub/Sub Topics]
-        B2[ Dead Letter Queues]
-        B3[ Stream Processing]
+        B1[Pub/Sub Topics]
+        B2[Dead Letter Queues]
+        B3[Stream Processing]
     end
     
     subgraph "3. Processing Layer"
-        C1[ Data Validation]
-        C2[ Feature Engineering]
-        C3[ Aggregation Windows]
-        C4[ Real-time Scoring]
+        C1[Data Validation]
+        C2[Feature Engineering]
+        C3[Aggregation Windows]
+        C4[Real-time Scoring]
     end
     
     subgraph "4. Storage Layer"
         D1[Transactional DB]
-        D2[ Analytics Warehouse]
-        D3[❄ Cold Storage]
-        D4[ Feature Cache]
+        D2[Analytics Warehouse]
+        D3[Cold Storage]
+        D4[Feature Cache]
     end
     
     subgraph "5. Serving Layer"
-        E1[ REST APIs]
-        E2[ WebSocket Streams]
-        E3[ ML Inference]
-        E4[ Analytics Queries]
+        E1[REST APIs]
+        E2[WebSocket Streams]
+        E3[ML Inference]
+        E4[Analytics Queries]
     end
     
     A1 --> B1
@@ -210,11 +210,11 @@ graph TD
     D4 --> E3
     E3 --> E2
     
-    classDef ingestion fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    classDef streaming fill:#E8F5E8,stroke:#388E3C,stroke-width:2px
-    classDef processing fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
-    classDef storage fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-    classDef serving fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    classDef ingestion fill:#E8F4FD,stroke:#1565C0,stroke-width:2px,color:#000000
+    classDef streaming fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,color:#000000
+    classDef processing fill:#FFF8E1,stroke:#EF6C00,stroke-width:2px,color:#000000
+    classDef storage fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#000000
+    classDef serving fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:#000000
     
     class A1,A2,A3,A4 ingestion
     class B1,B2,B3 streaming
@@ -225,44 +225,44 @@ graph TD
 
 ---
 
-## **Machine Learning Pipeline**
+## Machine Learning Pipeline
 
-### **Training Pipeline**
+### Training Pipeline
 
 ```mermaid
 flowchart TD
     subgraph "1. Data Preparation"
-        A1[BigQuery Source] --> A2[ Feature Selection]
-        A2 --> A3[ Data Validation]
-        A3 --> A4[ Train/Val Split]
+        A1[BigQuery Source] --> A2[Feature Selection]
+        A2 --> A3[Data Validation]
+        A3 --> A4[Train/Val Split]
     end
     
     subgraph "2. Feature Engineering"
-        B1[ Rolling Aggregations<br/>3d, 7d, 14d windows]
-        B2[ Trend Features<br/>Slope, momentum]
-        B3[ Categorical Encoding<br/>Target encoding]
-        B4[ Interaction Features<br/>Pain × Sleep efficiency]
+        B1[Rolling Aggregations<br/>3d, 7d, 14d windows]
+        B2[Trend Features<br/>Slope, momentum]
+        B3[Categorical Encoding<br/>Target encoding]
+        B4[Interaction Features<br/>Pain × Sleep efficiency]
     end
     
     subgraph "3. Model Training"
-        C1[ XGBoost Training]
-        C2[ Hyperparameter Tuning<br/>Optuna optimization]
-        C3[ Cross-validation<br/>Time series split]
-        C4[ Calibration<br/>Platt scaling]
+        C1[XGBoost Training]
+        C2[Hyperparameter Tuning<br/>Optuna optimization]
+        C3[Cross-validation<br/>Time series split]
+        C4[Calibration<br/>Platt scaling]
     end
     
     subgraph "4. Model Evaluation"
-        D1[ Performance Metrics<br/>AUROC, AUPRC, ECE]
-        D2[ Clinical Validation<br/>Physician review]
-        D3[ Fairness Testing<br/>Demographic parity]
+        D1[Performance Metrics<br/>AUROC, AUPRC, ECE]
+        D2[Clinical Validation<br/>Physician review]
+        D3[Fairness Testing<br/>Demographic parity]
         D4[Feature Importance<br/>SHAP analysis]
     end
     
     subgraph "5. Model Deployment"
-        E1[ Model Packaging<br/>TorchServe MAR]
-        E2[ Shadow Testing<br/>3-week validation]
-        E3[ Gradual Rollout<br/>10% → 50% → 100%]
-        E4[ Monitoring<br/>Drift detection]
+        E1[Model Packaging<br/>TorchServe MAR]
+        E2[Shadow Testing<br/>3-week validation]
+        E3[Gradual Rollout<br/>10% → 50% → 100%]
+        E4[Monitoring<br/>Drift detection]
     end
     
     A4 --> B1
@@ -289,11 +289,11 @@ flowchart TD
     E2 --> E3
     E3 --> E4
     
-    classDef data fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    classDef feature fill:#E8F5E8,stroke:#388E3C,stroke-width:2px
-    classDef training fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
-    classDef evaluation fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-    classDef deployment fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    classDef data fill:#E8F4FD,stroke:#1565C0,stroke-width:2px,color:#000000
+    classDef feature fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,color:#000000
+    classDef training fill:#FFF8E1,stroke:#EF6C00,stroke-width:2px,color:#000000
+    classDef evaluation fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#000000
+    classDef deployment fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:#000000
     
     class A1,A2,A3,A4 data
     class B1,B2,B3,B4 feature
@@ -302,7 +302,7 @@ flowchart TD
     class E1,E2,E3,E4 deployment
 ```
 
-### **Feature Engineering Pipeline**
+### Feature Engineering Pipeline
 
 | Feature Category | Examples | Window | Update Frequency |
 |------------------|----------|--------|------------------|
@@ -314,39 +314,39 @@ flowchart TD
 
 ---
 
-## 🔒 **Security Architecture**
+## Security Architecture
 
-### **Zero-Trust Security Model**
+### Zero-Trust Security Model
 
 ```mermaid
 graph TB
     subgraph "Client Layer"
-        A1[ Mobile App<br/>Certificate Pinning]
-        A2[ Web Dashboard<br/>CSP Headers]
+        A1[Mobile App<br/>Certificate Pinning]
+        A2[Web Dashboard<br/>CSP Headers]
     end
     
     subgraph "API Gateway"
-        B1[ WAF<br/>DDoS Protection]
-        B2[ Auth0<br/>JWT + RBAC]
-        B3[ Rate Limiting<br/>100 req/min per user]
+        B1[WAF<br/>DDoS Protection]
+        B2[Auth0<br/>JWT + RBAC]
+        B3[Rate Limiting<br/>100 req/min per user]
     end
     
     subgraph "Application Layer"
-        C1[ FastAPI<br/>Input validation]
-        C2[ Encryption<br/>AES-256-GCM]
-        C3[ Audit Logging<br/>All data access]
+        C1[FastAPI<br/>Input validation]
+        C2[Encryption<br/>AES-256-GCM]
+        C3[Audit Logging<br/>All data access]
     end
     
     subgraph "Data Layer"
         D1[PostgreSQL<br/>Encryption at rest]
-        D2[ Secret Manager<br/>Key rotation]
-        D3[ BigQuery<br/>Column-level security]
+        D2[Secret Manager<br/>Key rotation]
+        D3[BigQuery<br/>Column-level security]
     end
     
     subgraph "Network Layer"
-        E1[ VPC<br/>Private networking]
-        E2[ Firewall Rules<br/>Principle of least privilege]
-        E3[ TLS 1.3<br/>All communications]
+        E1[VPC<br/>Private networking]
+        E2[Firewall Rules<br/>Principle of least privilege]
+        E3[TLS 1.3<br/>All communications]
     end
     
     A1 --> B1
@@ -366,11 +366,11 @@ graph TB
     E1 --> E2
     E2 --> E3
     
-    classDef client fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    classDef gateway fill:#E8F5E8,stroke:#388E3C,stroke-width:2px
-    classDef app fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
-    classDef data fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-    classDef network fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    classDef client fill:#E8F4FD,stroke:#1565C0,stroke-width:2px,color:#000000
+    classDef gateway fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,color:#000000
+    classDef app fill:#FFF8E1,stroke:#EF6C00,stroke-width:2px,color:#000000
+    classDef data fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#000000
+    classDef network fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:#000000
     
     class A1,A2 client
     class B1,B2,B3 gateway
@@ -379,7 +379,7 @@ graph TB
     class E1,E2,E3 network
 ```
 
-### **HIPAA Compliance Controls**
+### HIPAA Compliance Controls
 
 | Control | Implementation | Audit Frequency |
 |---------|----------------|-----------------|
@@ -392,9 +392,9 @@ graph TB
 
 ---
 
-## ⚡ **Performance & Scaling**
+## Performance & Scaling
 
-### **Load Testing Results**
+### Load Testing Results
 
 ```mermaid
 xychart-beta
@@ -411,7 +411,7 @@ xychart-beta
 | **Error Rate** | 0.02% | <0.1% | 0.05% @ peak |
 | **Availability** | 99.94% | 99.9% | 4h downtime/month |
 
-### **Auto-scaling Configuration**
+### Auto-scaling Configuration
 
 ```yaml
 # Cloud Run Auto-scaling
@@ -436,9 +436,9 @@ postgres:
 
 ---
 
-## 📊 **Database Schema Design**
+## Database Schema Design
 
-### **Core Entity Relationships**
+### Core Entity Relationships
 
 ```mermaid
 erDiagram
@@ -505,7 +505,7 @@ erDiagram
     }
 ```
 
-### **BigQuery Feature Store Schema**
+### BigQuery Feature Store Schema
 
 ```sql
 -- Feature table optimized for ML training
@@ -545,9 +545,9 @@ CLUSTER BY user_id;
 
 ---
 
-## 🔄 **Event-Driven Architecture**
+## Event-Driven Architecture
 
-### **Message Schema & Topics**
+### Message Schema & Topics
 
 ```json
 {
@@ -606,33 +606,33 @@ CLUSTER BY user_id;
 }
 ```
 
-### **Event Processing Pipeline**
+### Event Processing Pipeline
 
 ```mermaid
 graph LR
     subgraph "Event Sources"
-        A1[📱 Mobile App]
-        A2[⌚ Wearables]
-        A3[🏥 Clinical Systems]
+        A1[Mobile App]
+        A2[Wearables]
+        A3[Clinical Systems]
     end
     
     subgraph "Event Streaming"
-        B1[📡 Pub/Sub<br/>aegis-symptoms]
-        B2[📡 Pub/Sub<br/>aegis-wearables]
-        B3[📡 Pub/Sub<br/>aegis-clinical]
+        B1[Pub/Sub<br/>aegis-symptoms]
+        B2[Pub/Sub<br/>aegis-wearables]
+        B3[Pub/Sub<br/>aegis-clinical]
     end
     
     subgraph "Stream Processing"
-        C1[⚡ Real-time ETL<br/>Apache Beam]
-        C2[🧮 Feature Computation<br/>Rolling aggregations]
-        C3[🤖 ML Inference<br/>Risk scoring]
+        C1[Real-time ETL<br/>Apache Beam]
+        C2[Feature Computation<br/>Rolling aggregations]
+        C3[ML Inference<br/>Risk scoring]
     end
     
     subgraph "Event Sinks"
-        D1[🗄️ PostgreSQL<br/>Transactional]
-        D2[🏢 BigQuery<br/>Analytics]
-        D3[📊 Monitoring<br/>Metrics]
-        D4[🚨 Alerting<br/>Notifications]
+        D1[PostgreSQL<br/>Transactional]
+        D2[BigQuery<br/>Analytics]
+        D3[Monitoring<br/>Metrics]
+        D4[Alerting<br/>Notifications]
     end
     
     A1 --> B1
@@ -651,10 +651,10 @@ graph LR
     C3 --> D3
     C3 --> D4
     
-    classDef source fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    classDef streaming fill:#E8F5E8,stroke:#388E3C,stroke-width:2px
-    classDef processing fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
-    classDef sink fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
+    classDef source fill:#E8F4FD,stroke:#1565C0,stroke-width:2px,color:#000000
+    classDef streaming fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,color:#000000
+    classDef processing fill:#FFF8E1,stroke:#EF6C00,stroke-width:2px,color:#000000
+    classDef sink fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#000000
     
     class A1,A2,A3 source
     class B1,B2,B3 streaming
@@ -664,48 +664,48 @@ graph LR
 
 ---
 
-## 🚀 **Deployment Architecture**
+## Deployment Architecture
 
-### **Google Cloud Platform Setup**
+### Google Cloud Platform Setup
 
 ```mermaid
 graph TB
     subgraph "Production Environment"
         subgraph "Compute"
-            A1[☁️ Cloud Run<br/>API Service]
-            A2[☁️ Cloud Run<br/>ML Service]
-            A3[⚙️ Cloud Functions<br/>ETL Triggers]
+            A1[Cloud Run<br/>API Service]
+            A2[Cloud Run<br/>ML Service]
+            A3[Cloud Functions<br/>ETL Triggers]
         end
         
         subgraph "Data Services"
-            B1[🗄️ Cloud SQL<br/>PostgreSQL 14]
-            B2[🏢 BigQuery<br/>Data Warehouse]
-            B3[☁️ Cloud Storage<br/>Model Artifacts]
+            B1[Cloud SQL<br/>PostgreSQL 14]
+            B2[BigQuery<br/>Data Warehouse]
+            B3[Cloud Storage<br/>Model Artifacts]
         end
         
         subgraph "Messaging"
-            C1[📡 Pub/Sub<br/>Event Streaming]
-            C2[⚡ Dataflow<br/>Stream Processing]
-            C3[⏰ Cloud Scheduler<br/>Batch Jobs]
+            C1[Pub/Sub<br/>Event Streaming]
+            C2[Dataflow<br/>Stream Processing]
+            C3[Cloud Scheduler<br/>Batch Jobs]
         end
         
         subgraph "Security"
-            D1[🔐 IAM<br/>Service Accounts]
-            D2[🔑 Secret Manager<br/>API Keys]
-            D3[🛡️ VPC<br/>Private Network]
+            D1[IAM<br/>Service Accounts]
+            D2[Secret Manager<br/>API Keys]
+            D3[VPC<br/>Private Network]
         end
         
         subgraph "Monitoring"
-            E1[📊 Cloud Monitoring<br/>Metrics & Alerts]
-            E2[📝 Cloud Logging<br/>Centralized Logs]
-            E3[🔍 Cloud Trace<br/>Distributed Tracing]
+            E1[Cloud Monitoring<br/>Metrics & Alerts]
+            E2[Cloud Logging<br/>Centralized Logs]
+            E3[Cloud Trace<br/>Distributed Tracing]
         end
     end
     
     subgraph "External Services"
-        F1[🔐 Auth0<br/>Authentication]
-        F2[📱 Firebase<br/>Push Notifications]
-        F3[📧 SendGrid<br/>Email Service]
+        F1[Auth0<br/>Authentication]
+        F2[Firebase<br/>Push Notifications]
+        F3[SendGrid<br/>Email Service]
     end
     
     A1 --> B1
@@ -743,34 +743,34 @@ graph TB
     class F1,F2,F3 external
 ```
 
-### **CI/CD Pipeline**
+### CI/CD Pipeline
 
 ```mermaid
 flowchart LR
     subgraph "Development"
-        A1[💻 Developer Push]
-        A2[🔀 GitHub PR]
-        A3[✅ Code Review]
+        A1[Developer Push]
+        A2[GitHub PR]
+        A3[Code Review]
     end
     
     subgraph "CI Pipeline"
-        B1[🧪 Unit Tests<br/>pytest, Jest]
-        B2[🔍 Lint & Format<br/>ESLint, Black]
-        B3[🛡️ Security Scan<br/>Bandit, Semgrep]
-        B4[📦 Build Images<br/>Docker Build]
+        B1[Unit Tests<br/>pytest, Jest]
+        B2[Lint & Format<br/>ESLint, Black]
+        B3[Security Scan<br/>Bandit, Semgrep]
+        B4[Build Images<br/>Docker Build]
     end
     
     subgraph "CD Pipeline"
-        C1[🚀 Deploy Staging<br/>Cloud Run]
-        C2[🧪 Integration Tests<br/>API Testing]
-        C3[📊 Performance Tests<br/>K6 Load Testing]
-        C4[✅ Manual QA<br/>Smoke Tests]
+        C1[Deploy Staging<br/>Cloud Run]
+        C2[Integration Tests<br/>API Testing]
+        C3[Performance Tests<br/>K6 Load Testing]
+        C4[Manual QA<br/>Smoke Tests]
     end
     
     subgraph "Production"
-        D1[🎯 Blue-Green Deploy<br/>Zero Downtime]
-        D2[📊 Health Checks<br/>Readiness Probes]
-        D3[🔄 Rollback Ready<br/>Previous Version]
+        D1[Blue-Green Deploy<br/>Zero Downtime]
+        D2[Health Checks<br/>Readiness Probes]
+        D3[Rollback Ready<br/>Previous Version]
     end
     
     A1 --> A2
@@ -790,10 +790,10 @@ flowchart LR
     D1 --> D2
     D2 --> D3
     
-    classDef dev fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    classDef ci fill:#E8F5E8,stroke:#388E3C,stroke-width:2px
-    classDef cd fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
-    classDef prod fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    classDef dev fill:#E8F4FD,stroke:#1565C0,stroke-width:2px,color:#000000
+    classDef ci fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,color:#000000
+    classDef cd fill:#FFF8E1,stroke:#EF6C00,stroke-width:2px,color:#000000
+    classDef prod fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:#000000
     
     class A1,A2,A3 dev
     class B1,B2,B3,B4 ci
@@ -803,9 +803,9 @@ flowchart LR
 
 ---
 
-## 📊 **Technical Metrics & SLAs**
+## Technical Metrics & SLAs
 
-### **Service Level Objectives**
+### Service Level Objectives
 
 | Service | Availability | Latency (P95) | Error Rate | Recovery Time |
 |---------|-------------|---------------|------------|---------------|
@@ -814,7 +814,7 @@ flowchart LR
 | **Data Pipeline** | 99.0% | <30s (batch) | <1.0% | <30min |
 | **Mobile App** | 99.9% | <3s (startup) | <0.1% | Client-side |
 
-### **Resource Utilization**
+### Resource Utilization
 
 ```mermaid
 xychart-beta
@@ -824,7 +824,7 @@ xychart-beta
     bar [45, 62, 35, 78]
 ```
 
-### **Cost Optimization**
+### Cost Optimization
 
 | Component | Monthly Cost | Optimization Strategy |
 |-----------|-------------|----------------------|
@@ -837,9 +837,9 @@ xychart-beta
 
 ---
 
-## 🔮 **Future Architecture Considerations**
+## Future Architecture Considerations
 
-### **Scalability Roadmap**
+### Scalability Roadmap
 
 1. **Horizontal Scaling (Q1 2025)**
    - Multi-region deployment (US East/West)
@@ -861,7 +861,7 @@ xychart-beta
    - Event sourcing pattern
    - CQRS for read/write separation
 
-### **Technology Migrations**
+### Technology Migrations
 
 | Current | Future | Timeline | Reason |
 |---------|--------|----------|--------|
