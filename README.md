@@ -59,46 +59,46 @@
 graph TB
     %% Patient Layer
     subgraph "Patient Interface"
-        Mobile[📱 React Native App<br/>Symptom Logging, Risk View]
-        Wearables[⌚ Wearable Devices<br/>HealthKit, Google Fit]
+        Mobile[React Native App<br/>Symptom Logging, Risk View]
+        Wearables[Wearable Devices<br/>HealthKit, Google Fit]
     end
     
     %% Clinician Layer  
     subgraph "Clinician Interface"
-        Dashboard[🖥️ Next.js Dashboard<br/>Analytics, Interventions]
+        Dashboard[Next.js Dashboard<br/>Analytics, Interventions]
     end
     
     %% API Gateway
     subgraph "API Layer"
-        FastAPI[🚀 FastAPI Server<br/>Auth, CRUD, WebSockets]
-        Auth0[🔐 Auth0<br/>JWT, RBAC]
+        FastAPI[FastAPI Server<br/>Auth, CRUD, WebSockets]
+        Auth0[Auth0<br/>JWT, RBAC]
     end
     
     %% Data Processing
     subgraph "Data Pipeline"
-        PubSub[📡 Pub/Sub<br/>Real-time Ingestion]
-        Beam[⚡ Apache Beam<br/>ETL, Feature Engineering]
-        BigQuery[🏢 BigQuery<br/>Data Warehouse]
+        PubSub[Pub/Sub<br/>Real-time Ingestion]
+        Beam[Apache Beam<br/>ETL, Feature Engineering]
+        BigQuery[BigQuery<br/>Data Warehouse]
     end
     
     %% ML Pipeline
     subgraph "ML Platform"
-        Training[🧠 XGBoost Training<br/>Feature Engineering]
-        Serving[🤖 TorchServe<br/>Risk Prediction API]
-        SHAP[📊 SHAP Explainer<br/>Feature Attribution]
+        Training[XGBoost Training<br/>Feature Engineering]
+        Serving[TorchServe<br/>Risk Prediction API]
+        SHAP[SHAP Explainer<br/>Feature Attribution]
     end
     
     %% Storage
     subgraph "Data Storage"
-        PostgreSQL[🗄️ Cloud SQL<br/>Transactional Data]
-        GCS[☁️ Cloud Storage<br/>Raw Data Archive]
+        PostgreSQL[Cloud SQL<br/>Transactional Data]
+        GCS[Cloud Storage<br/>Raw Data Archive]
     end
     
     %% Monitoring
     subgraph "Observability"
-        Prometheus[📈 Prometheus<br/>Metrics Collection]
-        Grafana[📊 Grafana<br/>Dashboards, Alerts]
-        OpenTel[🔍 OpenTelemetry<br/>Distributed Tracing]
+        Prometheus[Prometheus<br/>Metrics Collection]
+        Grafana[Grafana<br/>Dashboards, Alerts]
+        OpenTel[OpenTelemetry<br/>Distributed Tracing]
     end
     
     %% Connections
@@ -120,13 +120,13 @@ graph TB
     OpenTel --> Prometheus
     Prometheus --> Grafana
     
-    %% Styling
-    classDef interface fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    classDef api fill:#E8F5E8,stroke:#388E3C,stroke-width:2px
-    classDef data fill:#FFF3E0,stroke:#F57C00,stroke-width:2px
-    classDef ml fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-    classDef storage fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
-    classDef monitoring fill:#E0F2F1,stroke:#00796B,stroke-width:2px
+    %% Styling with better contrast
+    classDef interface fill:#E8F4FD,stroke:#1565C0,stroke-width:2px,color:#000000
+    classDef api fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,color:#000000
+    classDef data fill:#FFF8E1,stroke:#EF6C00,stroke-width:2px,color:#000000
+    classDef ml fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#000000
+    classDef storage fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:#000000
+    classDef monitoring fill:#E0F2F1,stroke:#00695C,stroke-width:2px,color:#000000
     
     class Mobile,Wearables,Dashboard interface
     class FastAPI,Auth0 api
@@ -153,26 +153,26 @@ Chronic diseases affect **133M Americans**, with unpredictable flare-ups leading
 ```mermaid
 graph LR
     subgraph "Input Features"
-        Symptoms[📊 Symptom Scores<br/>Pain, Fatigue, Nausea]
-        Wearables[⌚ Wearable Data<br/>HRV, HR, Sleep, Steps]
-        Context[📅 Temporal Context<br/>Time of day, Day of week]
+        Symptoms[Symptom Scores<br/>Pain, Fatigue, Nausea]
+        Wearables[Wearable Data<br/>HRV, HR, Sleep, Steps]
+        Context[Temporal Context<br/>Time of day, Day of week]
     end
     
     subgraph "Feature Engineering"
-        Rolling[🔄 Rolling Windows<br/>3d, 7d, 14d aggregations]
-        Embeddings[🎯 Categorical Embeddings<br/>User, Time features]
+        Rolling[Rolling Windows<br/>3d, 7d, 14d aggregations]
+        Embeddings[Categorical Embeddings<br/>User, Time features]
     end
     
-    subgraph "TFT Model"
-        VSN[🧠 Variable Selection<br/>Feature Importance]
-        Attention[👁️ Multi-Head Attention<br/>Temporal Dependencies]
-        Gates[⚡ Gating Mechanisms<br/>Signal Filtering]
+    subgraph "XGBoost Model"
+        VSN[Variable Selection<br/>Feature Importance]
+        Attention[Feature Interactions<br/>Temporal Dependencies]
+        Gates[Decision Trees<br/>Ensemble Learning]
     end
     
     subgraph "Output"
-        Risk[🎯 Risk Score<br/>Calibrated Probability]
-        SHAP_OUT[📈 SHAP Values<br/>Top 3 Drivers]
-        LeadTime[⏰ Lead Time<br/>Hours to Flare]
+        Risk[Risk Score<br/>Calibrated Probability]
+        SHAP_OUT[SHAP Values<br/>Top 3 Drivers]
+        LeadTime[Lead Time<br/>Hours to Flare]
     end
     
     Symptoms --> Rolling
@@ -186,10 +186,10 @@ graph LR
     Gates --> SHAP_OUT
     Gates --> LeadTime
     
-    classDef input fill:#E3F2FD,stroke:#1976D2,stroke-width:2px
-    classDef processing fill:#E8F5E8,stroke:#388E3C,stroke-width:2px
-    classDef model fill:#F3E5F5,stroke:#7B1FA2,stroke-width:2px
-    classDef output fill:#FFEBEE,stroke:#D32F2F,stroke-width:2px
+    classDef input fill:#E8F4FD,stroke:#1565C0,stroke-width:2px,color:#000000
+    classDef processing fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,color:#000000
+    classDef model fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#000000
+    classDef output fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:#000000
     
     class Symptoms,Wearables,Context input
     class Rolling,Embeddings processing
@@ -211,12 +211,12 @@ graph LR
 
 ```mermaid
 sequenceDiagram
-    participant Patient as 📱 Patient App
-    participant Wearable as ⌚ Wearable
-    participant API as 🚀 FastAPI
-    participant PubSub as 📡 Pub/Sub
-    participant ML as 🤖 ML Service
-    participant Clinician as 🏥 Clinician
+    participant Patient as Patient App
+    participant Wearable as Wearable Device
+    participant API as FastAPI Server
+    participant PubSub as Pub/Sub Queue
+    participant ML as ML Service
+    participant Clinician as Clinician Dashboard
     
     Patient->>API: Log symptoms (pain: 7)
     API->>PubSub: Publish symptom event
@@ -224,7 +224,7 @@ sequenceDiagram
     
     Note over PubSub: Real-time feature aggregation
     PubSub->>ML: Trigger risk prediction
-    ML->>ML: Process features + TFT inference
+    ML->>ML: Process features + ML inference
     ML-->>API: Risk: 0.78 (HIGH)
     
     Note over API: Risk threshold exceeded
@@ -236,10 +236,9 @@ sequenceDiagram
     
     Note over API: Update engagement metrics
 ```
-
 ---
 
-## 🚀 **Quick Start**
+## **Quick Start**
 
 ### **Prerequisites**
 - Docker & Docker Compose
@@ -286,7 +285,7 @@ docker push gcr.io/your-project/aegis-ml
 
 ---
 
-## 📈 **Product Metrics & KPIs**
+## **Product Metrics & KPIs**
 
 ### **User Engagement**
 ```mermaid
@@ -311,32 +310,32 @@ xychart-beta
 
 ```mermaid
 flowchart TD
-    A[👤 Patient Reports Symptoms] --> B{🤖 AI Risk Assessment}
-    B -->|Low Risk<br/>0.0-0.3| C[📱 Self-care Nudges]
-    B -->|Medium Risk<br/>0.3-0.7| D[📋 Care Team Alert]
-    B -->|High Risk<br/>0.7-1.0| E[🚨 Urgent Clinical Review]
+    A[Patient Reports Symptoms] --> B{AI Risk Assessment}
+    B -->|Low Risk<br/>0.0-0.3| C[Self-care Nudges]
+    B -->|Medium Risk<br/>0.3-0.7| D[Care Team Alert]
+    B -->|High Risk<br/>0.7-1.0| E[Urgent Clinical Review]
     
-    C --> F[📊 Track Engagement]
-    D --> G[👩‍⚕️ Clinician Triage]
-    E --> H[📞 Direct Patient Contact]
+    C --> F[Track Engagement]
+    D --> G[Clinician Triage]
+    E --> H[Direct Patient Contact]
     
-    G --> I{📋 Clinical Decision}
-    I -->|Adjust Medication| J[💊 Rx Changes]
-    I -->|Schedule Visit| K[📅 Appointment]
-    I -->|Monitor Closely| L[🔍 Enhanced Tracking]
+    G --> I{Clinical Decision}
+    I -->|Adjust Medication| J[Rx Changes]
+    I -->|Schedule Visit| K[Appointment]
+    I -->|Monitor Closely| L[Enhanced Tracking]
     
-    H --> M[🏥 Emergency Protocol]
+    H --> M[Emergency Protocol]
     
-    F --> N[📈 Outcome Tracking]
+    F --> N[Outcome Tracking]
     J --> N
     K --> N
     L --> N
     M --> N
     
-    classDef patient fill:#E3F2FD,stroke:#1976D2
-    classDef ai fill:#F3E5F5,stroke:#7B1FA2
-    classDef clinical fill:#E8F5E8,stroke:#388E3C
-    classDef urgent fill:#FFEBEE,stroke:#D32F2F
+    classDef patient fill:#E8F4FD,stroke:#1565C0,stroke-width:2px,color:#000000
+    classDef ai fill:#F3E5F5,stroke:#6A1B9A,stroke-width:2px,color:#000000
+    classDef clinical fill:#E8F5E8,stroke:#2E7D32,stroke-width:2px,color:#000000
+    classDef urgent fill:#FFEBEE,stroke:#C62828,stroke-width:2px,color:#000000
     
     class A patient
     class B ai
@@ -346,7 +345,7 @@ flowchart TD
 
 ---
 
-## 🎯 **Business Impact**
+## **Business Impact**
 
 ### **Cost Reduction Model**
 - **Emergency Visit Cost:** $2,168 (avg)
@@ -362,7 +361,7 @@ flowchart TD
 
 ---
 
-## 📚 **Documentation**
+## **Documentation**
 
 - [**Architecture Deep Dive**](./ARCHITECTURE.md) - Technical system design
 - [**Product Strategy**](./PRODUCT_STRATEGY.md) - Market analysis & roadmap  
@@ -373,7 +372,7 @@ flowchart TD
 
 ---
 
-## 🤝 **Contributing**
+## **Contributing**
 
 We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md) for details.
 
@@ -387,13 +386,13 @@ We welcome contributions! Please see our [Contributing Guide](./CONTRIBUTING.md)
 
 ---
 
-## 📄 **License**
+##  **License**
 
 This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ---
 
-## 🏆 **Recognition**
+##  **Recognition**
 
 - **$10k Grant** - Hospital partnership program
 - **115 Patient Pilot** - Real-world validation
