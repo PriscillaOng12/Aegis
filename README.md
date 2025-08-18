@@ -2,14 +2,6 @@
 
 > **Preventing chronic disease flare-ups through predictive AI and personalized interventions**
 
-## **Impact & Results**
-
-**Real-world deployment with 115 patients over 10 weeks:**
-- **58% Weekly Active Users** with strong retention (D7: 72%, D30: 51%)
-- **9.3k AI-timed interventions** delivered with 41% tap-through rate
-- **63% clinician acknowledgment** of risk alerts within 24 hours
-- **48-hour flare prediction** with AUROC 0.81 and calibration error 2.9%
-
 ---
 
 ## **Technology Stack**
@@ -47,6 +39,13 @@
 ![ESLint](https://img.shields.io/badge/ESLint-4B32C3?style=flat-square&logo=eslint&logoColor=white)
 
 ---
+## **Impact & Results**
+
+**Completed beta for 115 patients over 10 weeks:**
+- **58% Weekly Active Users** with strong retention (D7: 72%, D30: 51%)
+- **9.3k AI-timed interventions** delivered with 41% tap-through rate
+- **63% clinician acknowledgment** of risk alerts within 24 hours
+- **48-hour flare prediction** with AUROC 0.81 and calibration error 2.9%
 
 ## **System Architecture**
 
