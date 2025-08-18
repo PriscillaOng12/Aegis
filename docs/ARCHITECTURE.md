@@ -18,83 +18,119 @@ Aegis Health implements a microservices architecture designed for healthcare env
 ## High-Level Architecture
 
 ```mermaid
+%%{init: {
+  'theme': 'dark',
+  'themeVariables': {
+    'primaryColor': '#4f46e5',
+    'primaryTextColor': '#ffffff',
+    'primaryBorderColor': '#6366f1',
+    'lineColor': '#94a3b8',
+    'secondaryColor': '#1e293b',
+    'tertiaryColor': '#334155',
+    'background': '#0f172a',
+    'mainBkg': '#1e293b',
+    'secondBkg': '#334155',
+    'tertiaryBkg': '#475569'
+  }
+}}%%
+
 C4Container
-    title Aegis Health - Container Diagram
+    title Aegis Health - High-Level Container Architecture
     
-    Person(patient, "Patient", "Chronic disease patient")
-    Person(clinician, "Clinician", "Healthcare provider")
+Person(patient, "Patient", "Chronic disease patient managing health")
+    Person(clinician, "Clinician", "Healthcare provider monitoring patients")
     
-    System_Boundary(mobile, "Mobile Application") {
-        Container(ios_app, "iOS/Android App", "React Native + Expo", "Symptom logging, risk monitoring")
+    System_Boundary(mobile, "Mobile Layer") {
+        Container(ios_app, "Mobile App", "React Native + Expo", "Symptom logging<br/>Risk monitoring<br/>Health tracking")
     }
     
-    System_Boundary(web, "Web Application") {
-        Container(dashboard, "Clinician Dashboard", "Next.js", "Analytics, intervention management")
+    System_Boundary(web, "Web Layer") {
+        Container(dashboard, "Clinician Dashboard", "Next.js + TypeScript", "Analytics interface<br/>Intervention management<br/>Patient overview")
     }
     
-    System_Boundary(api_gateway, "API Layer") {
-        Container(fastapi, "API Gateway", "FastAPI + Uvicorn", "REST APIs, WebSocket streams")
-        Container(auth, "Authentication", "Auth0", "JWT tokens, RBAC")
+    System_Boundary(api_gateway, "API Gateway Layer") {
+        Container(fastapi, "API Gateway", "FastAPI + Uvicorn", "REST APIs<br/>WebSocket streams<br/>Request validation")
+        Container(auth, "Auth Service", "Auth0 + JWT", "Authentication<br/>Role-based access<br/>Token management")
     }
     
-    System_Boundary(processing, "Data Processing") {
-        Container(pubsub, "Message Queue", "Google Pub/Sub", "Event streaming")
-        Container(beam, "ETL Pipeline", "Apache Beam", "Real-time data processing")
-        Container(scheduler, "Task Scheduler", "Cloud Scheduler", "Batch jobs, model training")
+    System_Boundary(processing, "Data Processing Layer") {
+        Container(pubsub, "Message Queue", "Google Pub/Sub", "Event streaming<br/>Async processing<br/>Message routing")
+        Container(beam, "ETL Pipeline", "Apache Beam", "Real-time processing<br/>Data transformation<br/>Stream analytics")
+        Container(scheduler, "Job Scheduler", "Cloud Scheduler", "Batch jobs<br/>Model training<br/>Automated tasks")
     }
     
     System_Boundary(ml_platform, "ML Platform") {
-        Container(training, "Model Training", "XGBoost + PyTorch", "Feature engineering, model training")
-        Container(serving, "Model Serving", "TorchServe", "Real-time inference")
-        Container(explainer, "Model Explainability", "SHAP", "Feature attribution")
+        Container(training, "Model Training", "XGBoost + PyTorch", "Feature engineering<br/>Model training<br/>Performance tuning")
+        Container(serving, "Model Serving", "TorchServe + GPU", "Real-time inference<br/>Model versioning<br/>Prediction API")
+        Container(explainer, "AI Explainability", "SHAP + LIME", "Feature attribution<br/>Model transparency<br/>Decision insights")
     }
     
-    System_Boundary(storage, "Data Storage") {
-        Container(postgres, "Primary Database", "Cloud SQL PostgreSQL", "Transactional data")
-        Container(bigquery, "Data Warehouse", "BigQuery", "Analytics, feature store")
-        Container(gcs, "Object Storage", "Cloud Storage", "Model artifacts, raw data")
+    System_Boundary(storage, "Data Storage Layer") {
+        Container(postgres, "Primary Database", "Cloud SQL PostgreSQL", "Transactional data<br/>ACID compliance<br/>Data integrity")
+        Container(bigquery, "Data Warehouse", "BigQuery + dbt", "Analytics store<br/>Feature store<br/>Historical data")
+        Container(gcs, "Object Storage", "Cloud Storage", "Model artifacts<br/>Raw data files<br/>Backup storage")
     }
     
-    System_Boundary(monitoring, "Observability") {
-        Container(prometheus, "Metrics", "Prometheus", "System metrics")
-        Container(grafana, "Dashboards", "Grafana", "Monitoring, alerting")
-        Container(otel, "Tracing", "OpenTelemetry", "Distributed tracing")
+    System_Boundary(monitoring, "Observability Stack") {
+        Container(prometheus, "Metrics Engine", "Prometheus", "System metrics<br/>Health monitoring<br/>Performance data")
+        Container(grafana, "Visualization", "Grafana + Alerts", "Dashboards<br/>Alerting<br/>Trend analysis")
+        Container(otel, "Tracing System", "OpenTelemetry", "Distributed tracing<br/>Error tracking<br/>Latency monitoring")
     }
     
-    %% External Systems
-    System_Ext(healthkit, "HealthKit/Google Fit", "Wearable device data")
-    System_Ext(notifications, "Push Notifications", "Firebase/APNs")
+    %% External Systems with enhanced styling
+    System_Ext(healthkit, "Health Platforms", "HealthKit / Google Fit<br/>Wearable integrations")
+    System_Ext(notifications, "Push Services", "Firebase FCM / APNs<br/>Real-time notifications")
     
-    %% Relationships
-    Rel(patient, ios_app, "Uses")
-    Rel(clinician, dashboard, "Uses")
+    %% Enhanced Relationships with labels
+    Rel(patient, ios_app, "Interacts", "Touch/Voice input")
+    Rel(clinician, dashboard, "Monitors", "Web interface")
     
-    Rel(ios_app, fastapi, "API calls", "HTTPS/WSS")
-    Rel(dashboard, fastapi, "API calls", "HTTPS")
-    Rel(fastapi, auth, "Validates tokens", "OIDC")
+    Rel(ios_app, fastapi, "API requests", "HTTPS/WSS")
+    Rel(dashboard, fastapi, "Data queries", "REST API")
+    Rel(fastapi, auth, "Token validation", "OIDC/OAuth2")
     
-    Rel(healthkit, pubsub, "Streams data", "HTTPS webhook")
-    Rel(fastapi, pubsub, "Publishes events", "gRPC")
-    Rel(pubsub, beam, "Processes messages", "Dataflow")
+    Rel(healthkit, pubsub, "Health data", "Webhook/API")
+    Rel(fastapi, pubsub, "Event publishing", "gRPC/HTTP")
+    Rel(pubsub, beam, "Stream processing", "Dataflow")
     
-    Rel(beam, bigquery, "Writes features", "Streaming inserts")
-    Rel(beam, postgres, "Updates aggregates", "Connection pool")
+    Rel(beam, bigquery, "Feature writes", "Streaming API")
+    Rel(beam, postgres, "Data updates", "Connection pool")
     
-    Rel(scheduler, training, "Triggers retraining", "Cloud Run jobs")
-    Rel(training, bigquery, "Reads features", "SQL queries")
-    Rel(training, gcs, "Saves models", "Object API")
+    Rel(scheduler, training, "Training jobs", "Cloud Run")
+    Rel(training, bigquery, "Feature queries", "SQL/BigQuery API")
+    Rel(training, gcs, "Model storage", "Cloud Storage API")
     
-    Rel(fastapi, serving, "Gets predictions", "HTTP/gRPC")
-    Rel(serving, explainer, "Generates explanations", "Python API")
-    Rel(serving, gcs, "Loads models", "Object API")
+    Rel(fastapi, serving, "Predictions", "HTTP/gRPC")
+    Rel(serving, explainer, "Explanations", "Python API")
+    Rel(serving, gcs, "Model loading", "Object storage")
     
-    Rel(fastapi, postgres, "CRUD operations", "Connection pool")
-    Rel(fastapi, otel, "Sends traces", "OTLP")
-    Rel(otel, prometheus, "Exports metrics", "Prometheus format")
-    Rel(prometheus, grafana, "Queries metrics", "PromQL")
+    Rel(fastapi, postgres, "CRUD ops", "AsyncPG pool")
+    Rel(fastapi, otel, "Trace data", "OTLP/HTTP")
+    Rel(otel, prometheus, "Metrics export", "Prometheus format")
+    Rel(prometheus, grafana, "Data queries", "PromQL")
     
-    Rel(fastapi, notifications, "Sends alerts", "REST API")
+    Rel(fastapi, notifications, "Push alerts", "REST API")
+
+    %% Styling
+    classDef mobileStyle fill:#3b82f6,stroke:#1e40af,stroke-width:2px,color:#ffffff
+    classDef webStyle fill:#059669,stroke:#047857,stroke-width:2px,color:#ffffff
+    classDef apiStyle fill:#dc2626,stroke:#b91c1c,stroke-width:2px,color:#ffffff
+    classDef processingStyle fill:#7c3aed,stroke:#6d28d9,stroke-width:2px,color:#ffffff
+    classDef mlStyle fill:#ea580c,stroke:#c2410c,stroke-width:2px,color:#ffffff
+    classDef storageStyle fill:#0891b2,stroke:#0e7490,stroke-width:2px,color:#ffffff
+    classDef monitoringStyle fill:#be185d,stroke:#9d174d,stroke-width:2px,color:#ffffff
+    classDef externalStyle fill:#475569,stroke:#64748b,stroke-width:2px,color:#ffffff,stroke-dasharray: 5 5
+    
+    class ios_app mobileStyle
+    class dashboard webStyle
+    class fastapi,auth apiStyle
+    class pubsub,beam,scheduler processingStyle
+    class training,serving,explainer mlStyle
+    class postgres,bigquery,gcs storageStyle
+    class prometheus,grafana,otel monitoringStyle
+    class healthkit,notifications externalStyle
 ```
+
 
 ---
 
