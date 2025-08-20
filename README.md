@@ -45,7 +45,7 @@ https://github.com/user-attachments/assets/89617633-2060-463e-a9af-a7b6a2d292f8
 ---
 ## **Impact & Results**
 
-**Completed beta for 115 patients over 10 weeks:**
+**Completed beta for 115 patients over 8 weeks:**
 - **58% Weekly Active Users** with strong retention (D7: 72%, D30: 51%)
 - **9.3k AI-timed interventions** delivered with 41% tap-through rate
 - **63% clinician acknowledgment** of risk alerts within 24 hours
